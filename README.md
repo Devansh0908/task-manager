@@ -119,13 +119,13 @@ Open the app at `http://localhost:5173`.
 
 1. Create a Railway project and add a MongoDB database or provide a MongoDB Atlas URI.
 2. Set backend environment variables in Railway:
-   - `MONGO_URI`
+   - `MONGO_URI` (or `DATABASE_URL`, `MONGODB_URI`, `MONGO_URL`)
    - `JWT_SECRET`
    - `JWT_EXPIRES_IN`
-   - `CLIENT_URL`
-3. Set the root directory to `server` for the backend service.
-4. Use `npm start` as the start command.
-5. Deploy the frontend separately with `VITE_API_URL` pointing to the deployed backend `/api` URL.
+   - `NODE_ENV=production`
+3. Keep the Railway service root directory at the repository root.
+4. Railway will use `railway.json` to build the React client and start the Express server.
+5. The Express server serves the built React app in production, so one Railway service hosts both the frontend and API.
 
 ## Useful Commands
 
