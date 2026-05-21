@@ -24,6 +24,12 @@ export default function Dashboard() {
   if (error) return <Alert>{error}</Alert>;
   if (!analytics) return <Loading label="Loading dashboard" />;
 
+  const totalTasks = analytics.totalTasks || 0;
+  const donePercent = totalTasks ? Math.round((analytics.byStatus.done / totalTasks) * 100) : 0;
+  const inProgressPercent = totalTasks ? Math.round((analytics.byStatus["in-progress"] / totalTasks) * 100) : 0;
+  const todoPercent = totalTasks ? Math.round((analytics.byStatus.todo / totalTasks) * 100) : 0;
+  const overduePercent = totalTasks ? Math.round((analytics.overdueTasks / totalTasks) * 100) : 0;
+
   const stats = [
     { label: "Total tasks", value: analytics.totalTasks, icon: ListTodo, tone: "blue" },
     { label: "Todo", value: analytics.byStatus.todo, icon: Clock3, tone: "slate" },
@@ -52,6 +58,55 @@ export default function Dashboard() {
             </article>
           );
         })}
+      </div>
+      <div className="dashboard-grid">
+        <section className="panel progress-panel">
+          <div className="panel-heading">
+            <CheckCircle2 size={20} />
+            <h2>Delivery Progress</h2>
+          </div>
+          <div className="progress-hero">
+            <strong>{donePercent}%</strong>
+            <span>tasks completed</span>
+          </div>
+          <div className="progress-track" aria-label="Task completion progress">
+            <span style={{ width: `${donePercent}%` }} />
+          </div>
+          <div className="status-breakdown">
+            <div>
+              <span>Todo</span>
+              <strong>{todoPercent}%</strong>
+            </div>
+            <div>
+              <span>In progress</span>
+              <strong>{inProgressPercent}%</strong>
+            </div>
+            <div>
+              <span>Overdue</span>
+              <strong>{overduePercent}%</strong>
+            </div>
+          </div>
+        </section>
+        <section className="panel insight-panel">
+          <div className="panel-heading">
+            <AlertTriangle size={20} />
+            <h2>Priority Snapshot</h2>
+          </div>
+          <div className="insight-list">
+            <div>
+              <span>Open workload</span>
+              <strong>{analytics.byStatus.todo + analytics.byStatus["in-progress"]}</strong>
+            </div>
+            <div>
+              <span>Blocked by deadline</span>
+              <strong>{analytics.overdueTasks}</strong>
+            </div>
+            <div>
+              <span>Project coverage</span>
+              <strong>{analytics.totalProjects}</strong>
+            </div>
+          </div>
+        </section>
       </div>
     </section>
   );

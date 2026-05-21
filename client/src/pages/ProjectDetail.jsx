@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { ArrowLeft, ListChecks, UserPlus, Users } from "lucide-react";
+import { ArrowLeft, CheckCircle2, CircleDot, ListChecks, UserPlus, Users } from "lucide-react";
 import api from "../api/axios";
 import Alert from "../components/Alert";
 import Loading from "../components/Loading";
@@ -81,6 +81,14 @@ export default function ProjectDetail() {
   if (loading) return <Loading label="Loading project" />;
   if (!project) return <Alert>Project not found.</Alert>;
 
+  const statusCounts = tasks.reduce(
+    (counts, task) => ({
+      ...counts,
+      [task.status]: counts[task.status] + 1
+    }),
+    { todo: 0, "in-progress": 0, done: 0 }
+  );
+
   return (
     <section className="page-stack">
       <Link className="back-link" to="/projects">
@@ -95,6 +103,11 @@ export default function ProjectDetail() {
           <span>{tasks.length} tasks</span>
           <span>{project.members?.length || 0} members</span>
         </div>
+      </div>
+      <div className="project-health">
+        <div><ListChecks size={18} /><span>Todo</span><strong>{statusCounts.todo}</strong></div>
+        <div><CircleDot size={18} /><span>In progress</span><strong>{statusCounts["in-progress"]}</strong></div>
+        <div><CheckCircle2 size={18} /><span>Done</span><strong>{statusCounts.done}</strong></div>
       </div>
       <Alert>{error}</Alert>
       <Alert type="success">{memberMessage}</Alert>

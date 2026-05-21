@@ -1,4 +1,4 @@
-import { LayoutDashboard, LogOut, FolderKanban, Sparkles } from "lucide-react";
+import { CalendarDays, FolderKanban, LayoutDashboard, LogOut, Sparkles } from "lucide-react";
 import { NavLink, Outlet } from "react-router-dom";
 import { useAuth } from "./context/AuthContext";
 
@@ -39,6 +39,16 @@ export default function App() {
         </button>
       </aside>
       <main className="main-content">
+        <header className="workspace-topbar">
+          <div>
+            <span className="topbar-label">Workspace</span>
+            <strong>Team operations</strong>
+          </div>
+          <div className="topbar-date">
+            <CalendarDays size={17} />
+            {new Date().toLocaleDateString(undefined, { day: "numeric", month: "short", year: "numeric" })}
+          </div>
+        </header>
         <Outlet />
       </main>
     </div>
