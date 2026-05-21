@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link, useParams } from "react-router-dom";
+import { ArrowLeft, ListChecks, UserPlus, Users } from "lucide-react";
 import api from "../api/axios";
 import Alert from "../components/Alert";
 import Loading from "../components/Loading";
@@ -83,12 +84,16 @@ export default function ProjectDetail() {
   return (
     <section className="page-stack">
       <Link className="back-link" to="/projects">
-        Back to projects
+        <ArrowLeft size={16} /> Back to projects
       </Link>
       <div className="page-header">
         <div>
           <h1>{project.name}</h1>
           <p>{project.description || "No description"}</p>
+        </div>
+        <div className="header-metrics">
+          <span>{tasks.length} tasks</span>
+          <span>{project.members?.length || 0} members</span>
         </div>
       </div>
       <Alert>{error}</Alert>
@@ -96,13 +101,19 @@ export default function ProjectDetail() {
       <div className="detail-layout">
         <div className="page-stack">
           <section className="panel">
-            <h2>Tasks</h2>
+            <div className="panel-heading">
+              <ListChecks size={20} />
+              <h2>Tasks</h2>
+            </div>
             <TaskList tasks={tasks} onStatusChange={updateTaskStatus} onDelete={deleteTask} />
           </section>
           {isAdmin && <TaskForm members={project.members || []} onSubmit={createTask} />}
         </div>
         <aside className="panel side-panel">
-          <h2>Members</h2>
+          <div className="panel-heading">
+            <Users size={20} />
+            <h2>Members</h2>
+          </div>
           <div className="member-list">
             {(project.members || []).map((member) => (
               <div className="member-row" key={member._id}>
@@ -117,7 +128,7 @@ export default function ProjectDetail() {
                 Add member by email
                 <input type="email" value={memberEmail} onChange={(event) => setMemberEmail(event.target.value)} required />
               </label>
-              <button type="submit">Add member</button>
+              <button type="submit"><UserPlus size={18} /> Add member</button>
             </form>
           )}
         </aside>

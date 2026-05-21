@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
+import { ArrowRight, CheckCircle2 } from "lucide-react";
 import Alert from "../components/Alert";
 import { useAuth } from "../context/AuthContext";
 
@@ -41,8 +42,17 @@ export default function Login() {
 
   return (
     <main className="auth-page">
+      <section className="auth-hero" aria-label="Product summary">
+        <span className="eyebrow">Project control center</span>
+        <h1>Keep tasks, owners, and deadlines moving together.</h1>
+        <div className="auth-points">
+          <span><CheckCircle2 size={17} /> Role-based teams</span>
+          <span><CheckCircle2 size={17} /> Project task boards</span>
+          <span><CheckCircle2 size={17} /> Deadline analytics</span>
+        </div>
+      </section>
       <form className="auth-panel" onSubmit={handleSubmit}>
-        <h1>Team Task Manager</h1>
+        <h1>Welcome back</h1>
         <p>Log in to manage team projects, assignments, and deadlines.</p>
         <Alert>{error}</Alert>
         <label>
@@ -54,7 +64,7 @@ export default function Login() {
           <input type="password" name="password" value={form.password} onChange={updateField} required />
         </label>
         <button type="submit" disabled={loading}>
-          {loading ? "Logging in..." : "Log in"}
+          {loading ? "Logging in..." : <>Log in <ArrowRight size={18} /></>}
         </button>
         <span className="auth-switch">
           New here? <Link to="/signup">Create an account</Link>

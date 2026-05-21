@@ -1,4 +1,4 @@
-import { LayoutDashboard, LogOut, FolderKanban } from "lucide-react";
+import { LayoutDashboard, LogOut, FolderKanban, Sparkles } from "lucide-react";
 import { NavLink, Outlet } from "react-router-dom";
 import { useAuth } from "./context/AuthContext";
 
@@ -9,10 +9,18 @@ export default function App() {
     <div className="app-shell">
       <aside className="sidebar">
         <div>
-          <div className="brand">Team Task Manager</div>
+          <div className="brand">
+            <span className="brand-mark">
+              <Sparkles size={18} />
+            </span>
+            <span>Team Task Manager</span>
+          </div>
           <div className="user-card">
-            <strong>{user?.name}</strong>
-            <span>{user?.role}</span>
+            <div className="avatar">{user?.name?.charAt(0)?.toUpperCase() || "U"}</div>
+            <div>
+              <strong>{user?.name}</strong>
+              <span>{user?.role}</span>
+            </div>
           </div>
           <nav className="nav-list" aria-label="Primary navigation">
             <NavLink to="/dashboard">

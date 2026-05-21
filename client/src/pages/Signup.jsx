@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link, Navigate, useNavigate } from "react-router-dom";
+import { ArrowRight, CheckCircle2 } from "lucide-react";
 import Alert from "../components/Alert";
 import { useAuth } from "../context/AuthContext";
 
@@ -45,6 +46,15 @@ export default function Signup() {
 
   return (
     <main className="auth-page">
+      <section className="auth-hero" aria-label="Product summary">
+        <span className="eyebrow">Start organized</span>
+        <h1>Create projects, assign work, and track every deadline.</h1>
+        <div className="auth-points">
+          <span><CheckCircle2 size={17} /> Admin and member roles</span>
+          <span><CheckCircle2 size={17} /> Live task status</span>
+          <span><CheckCircle2 size={17} /> Overdue tracking</span>
+        </div>
+      </section>
       <form className="auth-panel" onSubmit={handleSubmit}>
         <h1>Create Account</h1>
         <p>Choose admin to create projects and assign tasks, or member to collaborate.</p>
@@ -69,7 +79,7 @@ export default function Signup() {
           </select>
         </label>
         <button type="submit" disabled={loading}>
-          {loading ? "Creating..." : "Sign up"}
+          {loading ? "Creating..." : <>Sign up <ArrowRight size={18} /></>}
         </button>
         <span className="auth-switch">
           Already have an account? <Link to="/login">Log in</Link>

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { ArrowUpRight, FolderPlus, ListChecks, Users } from "lucide-react";
 import api from "../api/axios";
 import Alert from "../components/Alert";
 import Loading from "../components/Loading";
@@ -62,7 +63,10 @@ export default function Projects() {
       <Alert>{error}</Alert>
       {isAdmin && (
         <form className="panel form-grid" onSubmit={createProject}>
-          <h2>Create Project</h2>
+          <div className="panel-heading">
+            <FolderPlus size={20} />
+            <h2>Create Project</h2>
+          </div>
           <label>
             Name
             <input name="name" value={form.name} onChange={updateField} required />
@@ -79,11 +83,14 @@ export default function Projects() {
       <div className="project-grid">
         {projects.map((project) => (
           <Link className="project-card" key={project._id} to={`/projects/${project._id}`}>
-            <h2>{project.name}</h2>
+            <div className="project-card-top">
+              <h2>{project.name}</h2>
+              <ArrowUpRight size={18} />
+            </div>
             <p>{project.description || "No description"}</p>
             <div className="meta-row">
-              <span>{project.members?.length || 0} members</span>
-              <span>{project.tasks?.length || 0} tasks</span>
+              <span><Users size={15} /> {project.members?.length || 0} members</span>
+              <span><ListChecks size={15} /> {project.tasks?.length || 0} tasks</span>
             </div>
           </Link>
         ))}

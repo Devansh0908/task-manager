@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { PlusCircle } from "lucide-react";
 import Alert from "./Alert";
 
 const initialState = {
@@ -43,7 +44,10 @@ export default function TaskForm({ members, onSubmit }) {
 
   return (
     <form className="panel form-grid" onSubmit={handleSubmit}>
-      <h2>Create Task</h2>
+      <div className="panel-heading">
+        <PlusCircle size={20} />
+        <h2>Create Task</h2>
+      </div>
       <Alert>{error}</Alert>
       <label>
         Title
@@ -79,7 +83,7 @@ export default function TaskForm({ members, onSubmit }) {
         <input name="dueDate" type="date" value={form.dueDate} onChange={updateField} required />
       </label>
       <button type="submit" disabled={saving}>
-        {saving ? "Creating..." : "Create task"}
+        {saving ? "Creating..." : <><PlusCircle size={18} /> Create task</>}
       </button>
     </form>
   );
