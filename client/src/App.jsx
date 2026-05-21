@@ -1,4 +1,4 @@
-import { CalendarDays, FolderKanban, LayoutDashboard, LogOut, Sparkles } from "lucide-react";
+import { CalendarDays, FolderKanban, LayoutDashboard, LogOut } from "lucide-react";
 import { NavLink, Outlet } from "react-router-dom";
 import { useAuth } from "./context/AuthContext";
 
@@ -11,7 +11,7 @@ export default function App() {
         <div>
           <div className="brand">
             <span className="brand-mark">
-              <Sparkles size={18} />
+              <img src="/image.png" alt="Team Task Manager logo" />
             </span>
             <span>Team Task Manager</span>
           </div>

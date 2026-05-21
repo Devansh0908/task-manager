@@ -133,11 +133,19 @@ p {
 }
 
 .brand-mark {
-  background: linear-gradient(135deg, #2dd4bf, #38bdf8);
+  background: #36c7dd;
   border-radius: 8px;
   color: #08202a;
   height: 38px;
+  overflow: hidden;
   width: 38px;
+}
+
+.brand-mark img {
+  display: block;
+  height: 100%;
+  object-fit: cover;
+  width: 100%;
 }
 
 .user-card {
